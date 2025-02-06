@@ -1,67 +1,52 @@
 import streamlit as st
 import pandas as pd
-from PyPDF2 import PdfReader
-from fpdf import FPDF
+import fitz  # pymupdf
+import os
 
-# Función para leer el archivo Excel
-def leer_excel(archivo_excel):
-    excel_data = pd.read_excel(archivo_excel)
-    return excel_data
+st.title("Superponer datos de Excel en un PDF")
 
-# Función para leer el contenido del PDF
-def leer_pdf(archivo_pdf):
-    reader = PdfReader(archivo_pdf)
-    contenido_pdf = ""
-    for page in reader.pages:
-        contenido_pdf += page.extract_text()
-    return contenido_pdf
+# Subir archivos
+pdf_file = st.file_uploader("Sube el archivo PDF", type=["pdf"])
+excel_file = st.file_uploader("Sube el archivo Excel", type=["xlsx"])
 
-# Función para modificar el PDF y agregar datos
-def modificar_pdf(contenido_pdf, dato_a_agregar):
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.add_page()
+if pdf_file and excel_file:
+    # Guardar archivos temporalmente
+    pdf_path = os.path.join("temp.pdf")
+    excel_path = os.path.join("temp.xlsx")
 
-    # Agregar contenido original del PDF
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, contenido_pdf)
+    with open(pdf_path, "wb") as f:
+        f.write(pdf_file.read())
 
-    # Agregar el dato extraído del Excel
-    pdf.ln(10)
-    pdf.cell(200, 10, txt=f"Nuevo dato agregado: {dato_a_agregar}", ln=True)
+    with open(excel_path, "wb") as f:
+        f.write(excel_file.read())
 
-    # Guardar el nuevo PDF
-    archivo_modificado = "archivo_modificado.pdf"
-    pdf.output(archivo_modificado)
-    return archivo_modificado
+    # Cargar el archivo Excel
+    df = pd.read_excel(excel_path, usecols=["Ay", "B"])
 
-# Interfaz de Streamlit
-st.title("Buscar y Modificar PDF con Datos de Excel")
+    # Cargar el PDF
+    pdf_doc = fitz.open(pdf_path)
 
-# Subir el archivo Excel
-archivo_excel = st.file_uploader("Sube un archivo Excel", type=["xlsx"])
-# Subir el archivo PDF
-archivo_pdf = st.file_uploader("Sube un archivo PDF", type=["pdf"])
+    # Procesar cada página del PDF
+    for page_num in range(len(pdf_doc)):
+        page = pdf_doc[page_num]
+        text = page.get_text("text")  # Extraer texto de la página
 
-if archivo_excel is not None and archivo_pdf is not None:
-    # Leer el archivo Excel
-    excel_data = leer_excel(archivo_excel)
-    dato_a_buscar = excel_data['VIN'][0]  # asumiendo que tienes una columna llamada 'columna_donde_esta_el_dato'
+        # Buscar coincidencias en el PDF
+        for _, row in df.iterrows():
+            palabra_clave = str(row["Ay"])
+            texto_a_insertar = str(row["B"])
 
-    # Leer el contenido del PDF
-    contenido_pdf = leer_pdf(archivo_pdf)
+            if palabra_clave in text:
+                rect = page.search_for(palabra_clave)
+                if rect:
+                    x, y, _, _ = rect[0]  # Primera coincidencia
+                    page.insert_text((x, y - 10), texto_a_insertar, fontsize=10, color=(1, 0, 0))
 
-    # Buscar el dato en el PDF
-    if dato_a_buscar in contenido_pdf:
-        st.success(f"El dato '{dato_a_buscar}' fue encontrado en el PDF.")
-        
-        # Modificar el PDF y agregar el dato
-        archivo_modificado = modificar_pdf(contenido_pdf, dato_a_buscar)
-        st.download_button(
-            label="Descargar PDF Modificado",
-            data=open(archivo_modificado, "rb").read(),
-            file_name=archivo_modificado,
-            mime="application/pdf"
-        )
-    else:
-        st.warning(f"El dato '{dato_a_buscar}' no se encontró en el PDF.")
+    # Guardar el PDF modificado
+    output_pdf = "documento_modificado.pdf"
+    pdf_doc.save(output_pdf)
+    pdf_doc.close()
+
+    # Descargar el nuevo PDF
+    with open(output_pdf, "rb") as f:
+        st.download_button("Descargar PDF Modificado", f, file_name="documento_modificado.pdf")
