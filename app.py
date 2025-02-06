@@ -33,8 +33,8 @@ if pdf_file and excel_file:
 
         # Buscar coincidencias en el PDF
         for _, row in df.iterrows():
-            palabra_clave = str(row["Ay"])
-            texto_a_insertar = str(row["B"])
+            palabra_clave = str(row["VIN"])
+            texto_a_insertar = str(row["POSICION"])
 
             if palabra_clave in text:
                 rect = page.search_for(palabra_clave)
