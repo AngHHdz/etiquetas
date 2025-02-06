@@ -36,12 +36,11 @@ if pdf_file and excel_file:
             palabra_clave = str(row["VIN"])
             texto_a_insertar = str(row["POSICION"])
 
-            if palabra_clave in text:
-                rect = page.search_for(palabra_clave)
-               if palabra_clave in text:
+
+    if palabra_clave in text:
     rect = page.search_for(palabra_clave)
-    if rect:
-        x, y, w, h = rect[0]  # Tomamos la primera coincidencia
+        if rect:
+            x, y, w, h = rect[0]  # Tomamos la primera coincidencia
 
         offset_x = 50  # Desplazamiento a la derecha
         texto_a_insertar = str(row["POSICION"])
@@ -51,13 +50,10 @@ if pdf_file and excel_file:
             fitz.Rect(x + offset_x, y, x + offset_x + 20, y + 100),  
             texto_a_insertar,
             fontsize=10,
-            color=(0, 0, 0, 0.188),
+            color=(1, 0, 0),
             rotate=90  # Rotación vertical
         )
-    # Guardar el PDF modificado
-    output_pdf = "documento_modificado.pdf"
-    pdf_doc.save(output_pdf)
-    pdf_doc.close()
+
 
     # Descargar el nuevo PDF
     with open(output_pdf, "rb") as f:
