@@ -3,11 +3,11 @@ import pandas as pd
 import fitz  # pymupdf
 import os
 
-st.title("Superponer datos de Excel en un PDF")
+st.title("RE-ETIQUETADOR")
 
 # Subir archivos
-pdf_file = st.file_uploader("Sube el archivo PDF", type=["pdf"])
-excel_file = st.file_uploader("Sube el archivo Excel", type=["xlsx"])
+pdf_file = st.file_uploader("CARGA LAS ETIQUETAS", type=["pdf"])
+excel_file = st.file_uploader("CARGA LOS VINS CON POSICION", type=["xlsx"])
 
 if pdf_file and excel_file:
     # Guardar archivos temporalmente
@@ -53,7 +53,7 @@ if pdf_file and excel_file:
                     )
 
     # Guardar el PDF modificado
-    output_pdf = "documento_modificado.pdf"
+    output_pdf = "ETIQUETAS NUEVAS.pdf"
     pdf_doc.save(output_pdf)
     pdf_doc.close()
 
