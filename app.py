@@ -45,7 +45,7 @@ if pdf_file and excel_file:
 
                     # Insertar texto en vertical al lado derecho de la coincidencia
                     page.insert_textbox(
-                        fitz.Rect(x + offset_x, y, x + offset_x + 380, y + 250),
+                        fitz.Rect(x + offset_x, y, x + offset_x + 300, y + 250),
                         texto_a_insertar,
                         fontsize=10,
                         color=(0, 0, 0, 0.188),
