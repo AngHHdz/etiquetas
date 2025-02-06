@@ -38,10 +38,22 @@ if pdf_file and excel_file:
 
             if palabra_clave in text:
                 rect = page.search_for(palabra_clave)
-                if rect:
-                    x, y, _, _ = rect[0]  # Primera coincidencia
-                    page.insert_text((x - 5, y - 10), texto_a_insertar, fontsize=10, color=(0, 0, 0, 0.188))
+               if palabra_clave in text:
+    rect = page.search_for(palabra_clave)
+    if rect:
+        x, y, w, h = rect[0]  # Tomamos la primera coincidencia
 
+        offset_x = 50  # Desplazamiento a la derecha
+        texto_a_insertar = str(row["B"])
+
+        # Insertar texto en vertical al lado derecho de la coincidencia
+        page.insert_textbox(
+            fitz.Rect(x + offset_x, y, x + offset_x + 20, y + 100),  
+            texto_a_insertar,
+            fontsize=10,
+            color=(0, 0, 0, 0.188),
+            rotate=90  # Rotación vertical
+        )
     # Guardar el PDF modificado
     output_pdf = "documento_modificado.pdf"
     pdf_doc.save(output_pdf)
