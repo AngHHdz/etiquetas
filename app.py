@@ -59,4 +59,4 @@ if pdf_file and excel_file:
 
     # Descargar el nuevo PDF
     with open(output_pdf, "rb") as f:
-        st.download_button("Descargar PDF Modificado", f, file_name="documento_modificado.pdf")
+        st.download_button("Descargar PDF Modificado", f, file_name="ETIQUETAS NUEVAS.pdf")
