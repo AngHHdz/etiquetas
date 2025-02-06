@@ -21,7 +21,7 @@ if pdf_file and excel_file:
         f.write(excel_file.read())
 
     # Cargar el archivo Excel
-    df = pd.read_excel(excel_path, usecols=["Ay", "B"])
+    df = pd.read_excel(excel_path, usecols=["A", "B"])
 
     # Cargar el PDF
     pdf_doc = fitz.open(pdf_path)
