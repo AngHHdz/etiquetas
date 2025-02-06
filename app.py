@@ -40,7 +40,7 @@ if pdf_file and excel_file:
                 rect = page.search_for(palabra_clave)
                 if rect:
                     x, y, _, _ = rect[0]  # Primera coincidencia
-                    page.insert_text((x, y - 30), texto_a_insertar, fontsize=10, color=(0, 0, 0, 0.188))
+                    page.insert_text((x - 30, y - 10), texto_a_insertar, fontsize=10, color=(0, 0, 0, 0.188))
 
     # Guardar el PDF modificado
     output_pdf = "documento_modificado.pdf"
