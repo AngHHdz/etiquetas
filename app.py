@@ -44,7 +44,7 @@ if pdf_file and excel_file:
         x, y, w, h = rect[0]  # Tomamos la primera coincidencia
 
         offset_x = 50  # Desplazamiento a la derecha
-        texto_a_insertar = str(row["B"])
+        texto_a_insertar = str(row["POSICION"])
 
         # Insertar texto en vertical al lado derecho de la coincidencia
         page.insert_textbox(
