@@ -46,7 +46,7 @@ archivo_pdf = st.file_uploader("Sube un archivo PDF", type=["pdf"])
 if archivo_excel is not None and archivo_pdf is not None:
     # Leer el archivo Excel
     excel_data = leer_excel(archivo_excel)
-    dato_a_buscar = excel_data['columna_donde_esta_el_dato'][0]  # asumiendo que tienes una columna llamada 'columna_donde_esta_el_dato'
+    dato_a_buscar = excel_data['VIN'][0]  # asumiendo que tienes una columna llamada 'columna_donde_esta_el_dato'
 
     # Leer el contenido del PDF
     contenido_pdf = leer_pdf(archivo_pdf)
