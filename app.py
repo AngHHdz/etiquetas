@@ -3,7 +3,7 @@ import pandas as pd
 import fitz  # pymupdf
 import os
 
-st.title("RE-ETIQUETADOR")
+st.title("RE-ETIQUETADOR 🫡")
 
 # Subir archivos
 pdf_file = st.file_uploader("CARGA LAS ETIQUETAS", type=["pdf"])
