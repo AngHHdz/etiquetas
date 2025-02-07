@@ -60,23 +60,3 @@ if pdf_file and excel_file:
     # Descargar el nuevo PDF
     with open(output_pdf, "rb") as f:
         st.download_button("Descargar PDF Modificado", f, file_name="ETIQUETAS NUEVAS.pdf")
-
-def set_background():
-    st.markdown(
-        """
-        <style>
-            body {
-                background-color: #0e1117;
-                color: #ffffff;
-                font-family: 'Arial', sans-serif;
-            }
-            .gif-container {
-                text-align: center;
-                margin-top: 40px;              
-            }
-        </style>
-st.markdown("""
-    <div style='margin-top: 10px; text-align: center;'>
-        <img src='https://i.gifer.com/4UeR.gif' width='200'>
-    </div>
-   
