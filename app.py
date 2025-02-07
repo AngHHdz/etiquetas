@@ -3,6 +3,33 @@ import pandas as pd
 import fitz  # pymupdf
 import os
 
+# Establecer imagen de fondo
+background_image = "url('https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Ftzzaojwterhd1.png')"  # Reemplaza con la URL de tu imagen
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: {background_image};
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Mostrar GIF centrado arriba
+gif_url = "https://i.gifer.com/4UeR.gif"  # Reemplaza con la URL de tu GIF
+st.markdown(
+    f"""
+    <div style="display: flex; justify-content: center;">
+        <img src="{gif_url}" width="200">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("- RE-ETIQUETADOR MIGUELITO 🫡")
 
 # Subir archivos
