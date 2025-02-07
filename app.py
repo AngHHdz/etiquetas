@@ -4,7 +4,7 @@ import fitz  # pymupdf
 import os
 
 # Establecer imagen de fondo
-background_image = "url(https://www.pixelstalk.net/wp-content/uploads/2016/06/Black-and-Blue-Images.jpg)"  # Reemplaza con la URL de tu imagen
+background_image = "url(https://4kwallpapers.com/images/walls/thumbs_3t/15593.png)"  # Reemplaza con la URL de tu imagen
 st.markdown(
     f"""
     <style>
