@@ -47,7 +47,7 @@ if pdf_file and excel_file:
                     page.insert_textbox(
                         fitz.Rect(x + offset_x + 20, y + 30, x + offset_x + 325, y + 450),
                         texto_a_insertar,
-                        fontsize=10,
+                        fontsize=40,
                         color=(0.231, 0.231, 0.216),
                         rotate=-90  # Rotación vertical
                     )
