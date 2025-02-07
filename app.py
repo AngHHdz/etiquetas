@@ -79,5 +79,4 @@ st.markdown("""
     <div style='margin-top: 10px; text-align: center;'>
         <img src='https://i.gifer.com/4UeR.gif' width='200'>
     </div>
-    """, unsafe_allow_html=True)
-        
+   
